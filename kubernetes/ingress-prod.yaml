@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: focaspay
+  namespace: focaspay-prod
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    ingress.kubernetes.io/whitelist-source-range: "61.221.49.115/32, 61.221.49.116/32"
+spec:
+  rules:
+  - host: focaspay.intella.co
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: focaspay-service
+          servicePort: http
+---

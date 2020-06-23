@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: focaspay-deployment
+  name: focaspay-deployment
+  namespace: focaspay-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: focaspay-deployment
+  template:
+    metadata:
+      labels:
+        app: focaspay-deployment
+    spec:
+      containers:
+      - name: focaspay-service
+        image: gcr.io/allpay-pass/focaspay:1.0.5
+        ports:
+        - name: http
+          containerPort: 8080
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: focaspay-service
+  name: focaspay-service
+  namespace: focaspay-prod
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: focaspay-deployment

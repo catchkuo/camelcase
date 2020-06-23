@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 優先等級: FATAL > ERROR > WARN >INFO > DEBUG -->
+<Configuration>
+	<properties>
+		<property name="LOG_HOME">./log/mis</property>
+		<property name="FILE_NAME">mis</property>
+	</properties>
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<File name="FILE" fileName="${LOG_HOME}/logfile_fileMode.log"
+			append="true">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+
+		<RollingRandomAccessFile name="MIS_PROJECT"
+			fileName="${LOG_HOME}/${FILE_NAME}.log"
+			filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz">
+
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+
+	</Appenders>
+	<Loggers>
+		<Logger name="org.springframework" level="info" />
+		<Root level="info">
+			<AppenderRef ref="STDOUT" />
+			<AppenderRef ref="FILE" />
+			<AppenderRef ref="MIS_PROJECT" />
+		</Root>
+	</Loggers>
+</Configuration>
