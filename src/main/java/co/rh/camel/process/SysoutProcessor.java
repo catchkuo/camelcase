@@ -17,7 +17,7 @@ public class SysoutProcessor implements Processor {
 		
 		System.out.println(exchange.getIn().getHeader("data"));
 		System.out.println("Body:");
-		Thread.sleep(300000);
+		Thread.sleep(3000);
 		System.out.println(exchange.getIn().getBody().getClass());
 		System.out.println(exchange.getIn().getBody());
 //		System.out.println(DatatypeConverter.printHexBinary(exchange.getIn().getBody(byte[].class)));
